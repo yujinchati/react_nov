@@ -1,0 +1,46 @@
+.Header {
+	display: flex;
+	width: 70vw;
+	padding: 30px 5px;
+	border-bottom: 1px solid rgba(var(--baseColor-code), 0.4);
+	justify-content: space-between;
+	margin: 0 auto;
+}
+
+h1 {
+	font-size: var(--titSize2);
+}
+ul {
+	display: flex;
+	align-items: center;
+	gap: 50px;
+	li a.on {
+		font-weight: bold;
+		color: var(--pointColor);
+	}
+}
+.themeBox {
+	width: 60px;
+	height: 26px;
+	border: 1px solid rgba(var(--baseColor-code), 0.6);
+	border-radius: 18px;
+	padding: 2px;
+	cursor: pointer;
+	position: relative;
+	transform: scale(0.7);
+	.ball {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		transition: 0.7s;
+		width: 20px;
+		height: 20px;
+		border-radius: 10px;
+		background-color: rgba(var(--baseColor-code), 0.6);
+	}
+}
+.themeBox.dark {
+	.ball {
+		left: 35px;
+	}
+}

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+:root {
+	--baseFont: 'Nanum Myeongjo', serif;
+	--pointFont: 'Libre Baskerville', serif;
+	--baseColor: #111;
+	--baseColor-code: 18, 18, 18;
+	--pointColor: hotpink;
+	--bgColor: #efefef;
+	--titSize: 2.4rem;
+	--titSize2: 1.4rem;
+}
+.dark {
+	--baseColor: #fff;
+	--baseColor-code: 255, 255, 255;
+	--bgColor: #222;
+}
