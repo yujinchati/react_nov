@@ -18,3 +18,20 @@ export function useSplitText() {
 		ref.innerHTML = tags;
 	};
 }
+
+export function useCustomText(type) {
+	if (type === 'title') {
+		return (txt) => {
+			return txt.charAt(0).toUpperCase() + txt.slice(1);
+		};
+	}
+	if (type === 'short') {
+		return (txt, len = 100) => {
+			if (txt.length > len) {
+				return (txt = txt.slice(0, len) + '...');
+			} else {
+				return txt;
+			}
+		};
+	}
+}

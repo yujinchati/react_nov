@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Layout from '../../common/layout/Layout';
 import './Department.scss';
+import { useCustomText } from '../../../hooks/useText';
 
 export default function Department() {
+	const chageTitle = useCustomText('title');
+	const shortTxt = useCustomText('short');
 	const test = 'abcdef';
 	//console.log(test.charAt(0)); //a
 	//console.log(test.slice(1, 3)); //bc
 	//console.log(test.slice(1)); //bcdef
-	console.log(test.toUpperCase());
 
 	const [MemberTit, setMemberTit] = useState('');
 	const [MemberData, setMemberData] = useState([]);
-	const path = process.env.PUBLIC_URL; //public폴더까지의 경로를 구하는 구문
-
+	const path = useRef(process.env.PUBLIC_URL); //public폴더까지의 경로를 구하는 구문
 	const fetchDepartment = () => {
-		fetch(`${path}/DB/department.json`)
+		fetch(`${path.current}/DB/department.json`)
 			.then((data) => data.json())
 			.then((json) => {
 				//console.log(json);
@@ -32,15 +33,18 @@ export default function Department() {
 	return (
 		<Layout title={'Deparment'}>
 			<section className='memberBox'>
-				<h2>{`${MemberTit.charAt(0).toUpperCase() + MemberTit.slice(1)}`}</h2>
+				<h2>{chageTitle(MemberTit)}</h2>
 				{MemberData.map((member, idx) => {
 					return (
 						<article key={member + idx}>
 							<div className='pic'>
-								<img src={`${path}/img/${member.pic}`} alt={member.name} />
+								<img src={`${path.current}/img/${member.pic}`} alt={member.name} />
 							</div>
 							<h2>{member.name}</h2>
-							<p>{member.position}</p>
+							<p>
+								{member.position}
+								{shortTxt('dkdkdkddkdkdkddkdkdkddkdkdkddkdkdkddkdkdkddkdkdkd', 10)}
+							</p>
 						</article>
 					);
 				})}
