@@ -1,7 +1,7 @@
 import { NavLink, Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.scss';
 
-export default function Header({ Dark, setDark }) {
+export default function Header({ Dark, setDark, setToggleMenu, ToggleMenu }) {
 	const btnThemeClick = () => {
 		console.log('dark');
 	};
@@ -46,6 +46,9 @@ export default function Header({ Dark, setDark }) {
 			<div className={`themeBox ${Dark && 'dark'}`} onClick={() => setDark(!Dark)}>
 				<div className='ball'></div>
 			</div>
+			<button className='menuToggle' onClick={() => setToggleMenu(!ToggleMenu)}>
+				menu
+			</button>
 		</header>
 	);
 }

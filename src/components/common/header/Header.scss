@@ -5,20 +5,23 @@
 	border-bottom: 1px solid rgba(var(--baseColor-code), 0.4);
 	justify-content: space-between;
 	margin: 0 auto;
-}
-
-h1 {
-	font-size: var(--titSize2);
-}
-ul {
-	display: flex;
-	align-items: center;
-	gap: 50px;
-	li a.on {
-		font-weight: bold;
-		color: var(--pointColor);
+	h1 {
+		font-size: var(--titSize2);
+	}
+	ul {
+		display: flex;
+		align-items: center;
+		gap: 50px;
+		li a.on {
+			font-weight: bold;
+			color: var(--pointColor);
+		}
+	}
+	.menuToggle {
+		display: none;
 	}
 }
+
 .themeBox {
 	width: 60px;
 	height: 26px;
@@ -42,5 +45,18 @@ ul {
 .themeBox.dark {
 	.ball {
 		left: 35px;
+	}
+}
+
+.tablet,
+.mobile {
+	.Header {
+		width: 80vw;
+		ul {
+			display: none;
+		}
+		.menuToggle {
+			display: block;
+		}
 	}
 }

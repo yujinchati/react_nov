@@ -20,18 +20,26 @@ export function useSplitText() {
 }
 
 export function useCustomText(type) {
-	if (type === 'title') {
-		return (txt) => {
-			return txt.charAt(0).toUpperCase() + txt.slice(1);
-		};
-	}
+	const toUpperText = (txt) => {
+		return txt.charAt(0).toUpperCase() + txt.slice(1);
+	};
+
 	if (type === 'short') {
-		return (txt, len = 100) => {
+		return (txt, len) => {
 			if (txt.length > len) {
 				return (txt = txt.slice(0, len) + '...');
 			} else {
 				return txt;
 			}
+		};
+	}
+	if (type === 'combined') {
+		return (txt) => {
+			let resultTxt = txt
+				.split(/-|_|\+/)
+				.map((data) => toUpperText(data))
+				.join(' ');
+			return resultTxt;
 		};
 	}
 }
