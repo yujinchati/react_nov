@@ -1,15 +1,17 @@
-import { NavLink, Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './Header.scss';
+import { NavLink, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as types from '../../../redux/action';
 
-export default function Header({ Dark, setDark, setToggleMenu, ToggleMenu }) {
-	const btnThemeClick = () => {
-		console.log('dark');
-	};
+export default function Header({ Dark, setDark }) {
+	const dispatch = useDispatch();
+	const Toggle = useSelector(store => store.menuReducer.menu);
 	return (
 		<header className='Header'>
 			<h1>
-				<Link to='/ '>dkdk</Link>
+				<Link to='/'>DCODELAB</Link>
 			</h1>
+
 			<ul>
 				<li>
 					<NavLink to='/department' activeClassName={'on'}>
@@ -42,11 +44,12 @@ export default function Header({ Dark, setDark, setToggleMenu, ToggleMenu }) {
 					</NavLink>
 				</li>
 			</ul>
-			{/* <button onClick={() => setDark(!Dark)}>Theme</button> */}
+
 			<div className={`themeBox ${Dark && 'dark'}`} onClick={() => setDark(!Dark)}>
 				<div className='ball'></div>
 			</div>
-			<button className='menuToggle' onClick={() => setToggleMenu(!ToggleMenu)}>
+
+			<button className='menuToggle' onClick={() => dispatch({ type: types.MENU.start, payload: !Toggle })}>
 				menu
 			</button>
 		</header>

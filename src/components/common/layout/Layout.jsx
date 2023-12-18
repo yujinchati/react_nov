@@ -15,7 +15,7 @@ export default function Layout({ children, title }) {
 		setTimeout(() => {
 			refFrame.current.classList.add('on');
 		}, 300);
-	}, []);
+	}, [splitText, title]);
 	return (
 		<main ref={refFrame} className={`Layout ${title}`}>
 			<h1 ref={refTitle}>{title}</h1>
