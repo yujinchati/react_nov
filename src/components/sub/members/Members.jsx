@@ -1,33 +1,31 @@
-import Layout from '../../common/layout/Layout';
 import { useDebounce } from '../../../hooks/useDebounce';
+import Layout from '../../common/layout/Layout';
 import './Members.scss';
 import { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export default function Members() {
 	const history = useHistory();
-	const initVal = useRef({ userid: '', pwd1: '', pwd2: '', email: '', comments: '', pwd1: '', pwd2: '', edu: '', gender: '', interest: [] });
+	const initVal = useRef({ userid: '', pwd1: '', pwd2: '', email: '', comments: '', edu: '', gender: '', interest: [] });
 	const [Val, setVal] = useState(initVal.current);
-	//useDebounce 훅의 인수로 특정 state를 전달해서 debouncing이 ㅈ거용된 새로운 state값 반환받음
-	const [Errs, setErrs] = useState({});
+	//useDebouce 훅의 인수로 특정 state를 전달해서 debouncing이 적용된 새로운 state값 반환받음
 	const DebouncedVal = useDebounce(Val);
+	const [Errs, setErrs] = useState({});
 
 	const handleReset = () => {
 		setVal(initVal.current);
 	};
 
 	const handleChange = e => {
-		//const key = e.target.name; //userid
-		//const value = e.target.value; //현재 입력하고 있는 인풋값
 		const { name, value } = e.target;
 		setVal({ ...Val, [name]: value });
 	};
+
 	const handleCheck = e => {
 		const { name } = e.target;
 		const inputs = e.target.parentElement.querySelectorAll('input');
 		const checkArr = [];
 		inputs.forEach(input => input.checked && checkArr.push(input.value));
-
 		setVal({ ...Val, [name]: checkArr });
 	};
 
@@ -36,7 +34,6 @@ export default function Members() {
 		const num = /[0-9]/;
 		const txt = /[a-zA-Z]/;
 		const spc = /[!@#$%^&*()[\]_.+]/;
-		// const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		const [m1, m2] = value.email.split('@');
 		const m3 = m2 && m2.split('.');
 
@@ -49,22 +46,7 @@ export default function Members() {
 		if (!m1 || !m2 || !m3[0] || !m3[1]) errs.email = '올바른 이메일 형식으로 입력하세요';
 		if (!num.test(value.pwd1) || !txt.test(value.pwd1) || !spc.test(value.pwd1) || value.pwd1.length < 5)
 			errs.pwd1 = '비밀번호는 특수문자, 문자, 숫자를 모두포함해서 5글자 이상 입력하세요.';
-		if (value.pwd1 !== value.pwd2 || !value.pwd2) errs.pwd2 = '두개의 비밀번호를 같게 입력하세요.';
-		//이메일 인증에러 조건
-		//문자열에 @포함, @앞뒤로 모두 문자 존재, @뒤쪽으로 .있어야됨, .앞뒤로 문자 포함
-		if (!/@/.test(value.email)) {
-			errs.email = '이메일주소에는 @를 포함해야 합니다.';
-		} else {
-			const [forward, backward] = value.email.split('@');
-			if (!forward || !backward) {
-				errs.email = '@앞뒤로 문자가 모두 포함되야 합니다.';
-			} else {
-				const [forward, backward] = value.email.split('.');
-				if (!forward || !backward) {
-					errs.email = '.앞뒤로 문자가 모두 포함되야 합니다.';
-				}
-			}
-		}
+
 		return errs;
 	};
 
@@ -73,10 +55,12 @@ export default function Members() {
 
 		if (Object.keys(check(Val)).length === 0) {
 			alert('회원가입을 축하합니다.');
-			history.push('/');
+			history.push('/welcome/3');
 		}
 	};
 
+	//debounding이 적용된 state를 의존성배열에 등록해서
+	//해당 값으로 check함수 호출
 	useEffect(() => {
 		setErrs(check(DebouncedVal));
 	}, [DebouncedVal]);

@@ -1,33 +1,36 @@
 import Layout from '../../common/layout/Layout';
 import './Youtube.scss';
+import { useState, useEffect } from 'react';
 import { useCustomText } from '../../../hooks/useText';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
-// awit 쓰는 이유는 코드 효율화 때문에 쓰는 것
-// const fetchYoutube = () => {
-// 	const api_key = 'AIzaSyDC60bIIkAJFzy7ji4a0Eo3AX6tYudhe1w';
-// 	const pid = 'PLYOPkdUKSFgWqafuDQN9di3uLJoTV3L3W';
-// 	const num = 10;
-// 	const baseURL = `https://www.googleapis.com/youtube/v3/playlistItems?key=${api_key}&part=snippet&playlistId=${pid}&maxResults=${num}`;
-// 	fetch(baseURL)
-// 		.then((data) => data.json())
-// 		.then((json) => {
-// 			setVids(json.items);
-// 			console.log(Vids);
-// 		});
-// 	setVids(json.items);
-// 	console.log(Vids);
-// };
 
 export default function Youtube() {
-	const Vids = useSelector(store => store.youtubeReducer.youtube);
 	const customText = useCustomText('combined');
-	const shortenText = useCustomText('short');
+	const shortenText = useCustomText('shorten');
+	const [Vids, setVids] = useState([]);
+
+	const fetchYoutube = async () => {
+		const api_key = process.env.REACT_APP_YOUTUBE_API;
+		const pid = process.env.REACT_APP_YOUTUBE_LIST;
+		const num = 10;
+		const baseURL = `https://www.googleapis.com/youtube/v3/playlistItems?key=${api_key}&part=snippet&playlistId=${pid}&maxResults=${num}`;
+
+		try {
+			const data = await fetch(baseURL);
+			const json = await data.json();
+			setVids(json.items);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	useEffect(() => {
+		fetchYoutube();
+	}, []);
 
 	return (
 		<Layout title={'Youtube'}>
-			{Vids?.map(data => {
+			{Vids.map((data) => {
 				const [date, time] = data.snippet.publishedAt.split('T');
 
 				return (
@@ -44,7 +47,10 @@ export default function Youtube() {
 
 						<div className='pic'>
 							<Link to={`/detail/${data.id}`}>
-								<img src={data.snippet.thumbnails.standard.url} alt={data.snippet.title} />
+								<img
+									src={data.snippet.thumbnails.standard.url}
+									alt={data.snippet.title}
+								/>
 							</Link>
 						</div>
 					</article>

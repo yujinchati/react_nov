@@ -1,23 +1,28 @@
 .Gallery {
-	//--gap: 20px;
+	--num: 4;
+
 	.controls {
+		width: 100%;
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
-		align-items: flex-start;
+		padding: 20px 5px;
+
 		.btnSet {
 			display: flex;
 			gap: 20px;
-			margin-bottom: 20px;
+
 			button {
 				background: transparent;
 				border: none;
 				cursor: pointer;
-				padding: 7px 0;
-				border-bottom: 1px solid rgba(var(--baseColor-code), 0.3);
+				padding: 7px 0px;
+				//border-bottom: 1px solid rgba(var(--baseColor-code), 0.3);
 				font-size: 1rem;
 				color: rgba(var(--baseColor-code), 0.4);
 				position: relative;
 				transition: 0.5s;
+
 				&::after {
 					content: '';
 					display: block;
@@ -29,6 +34,7 @@
 					background: var(--baseColor);
 					transition: 0.5s;
 				}
+
 				&.on {
 					color: rgba(var(--baseColor-code), 1);
 					&::after {
@@ -37,10 +43,12 @@
 				}
 			}
 		}
+
 		form {
 			display: flex;
 			align-items: center;
 			gap: 10px;
+
 			input {
 				width: 120px;
 				border: none;
@@ -49,6 +57,7 @@
 				padding: 6px 10px;
 				outline: 0;
 			}
+
 			.btnSearch {
 				border: none;
 				background-color: transparent;
@@ -58,12 +67,9 @@
 			}
 		}
 	}
+
 	.frameWrap {
-		//gap변수값을 컴포넌트에 적용하기 위해서는
-		//JSX파일에서 해당 변수가 등록될 요소를 참조해야 됨
-		//JSX요소는 useRef로 참조가능하지만 component는 참조불가하므로
-		//컴포넌트로 출력되는 Gallery리 말고 JSX로 출력되는 .frameWrap에 --gap변수 등록
-		--gap: 20px;
+		//--gap: 20px; 해당값은 리액트에서 처음 useEffect실행시 동적으로 생성되는 변수값
 		.frame {
 			width: 100%;
 			display: flex;
@@ -84,58 +90,50 @@
 						width: 100%;
 					}
 				}
-			}
-			h2 {
-				font-weight: normal;
-				font-size: 1rem;
-				line-height: 1.2;
-				margin-bottom: 10px;
-			}
-			.profile {
-				width: 100%;
-				display: flex;
-				align-items: flex-end;
-				gap: 10px;
-				margin-bottom: 20px;
-
-				img {
-					width: 40px;
+				h2 {
+					font-weight: normal;
+					font-size: 1rem;
+					line-height: 1.2;
+					margin-bottom: 10px;
 				}
-				span {
-					color: var(--pointColor);
-					font-size: 0.8rem;
+				.profile {
+					width: 100%;
+					display: flex;
+					align-items: flex-end;
+					gap: 10px;
+					margin-bottom: 20px;
+
+					img {
+						width: 40px;
+					}
+					span {
+						color: var(--pointColor);
+						font-size: 0.8rem;
+						word-break: break-all;
+					}
 				}
 			}
-		}
-	}
-
-	//laptop
-	.laptop {
-		.Gallery {
-			--num: 3;
-		}
-	}
-
-	//tablet
-	.tablet {
-		.Gallery {
-			--num: 2;
-		}
-	}
-
-	//mobile
-	.mobile {
-		.Gallery {
-			--num: 1;
 		}
 	}
 }
-/*
-	순서1.일반 동적 데이터를 제외한 일반 정적인 컨텐츠가 렌더링됨 (참조객체에 20 상수값을 미리 담아놓음)
-	순서2.정적인 JSX가 요소 일단은 브라우저에 렌더링완료되었기 때문에 useEffect실행가능해짐
-	순서3.useEffect안쪽에서 미리 참조객체에 연결해놓은 refFrameWrap에 접근 가능 (이때 refFrameWrap에 --gap변수에 20이라는 값을 강제 적용 이때부터는 sass파일에 --gap이란 변수가 없더라도 리액트에서 동적으로 gap이라는 변수값을 넣었기 때문에 활용가능)
-	순서4-리액트에 동적으로 변수값을 적용해서 돔을생성하고 나면 그 이후 scss가 해당 변수값을 읽어서 화면 스타일링
-	순서1-처음에 gap이라는 참조객체값을 해석
-	순서2-2번째 렌더링타임에 useEffect가 실행되면서 참조객체에 담겨있는 section요소에 강제로 gap변수값을 적용
-	순서3-3번째 렌더링 타임에 fecthing데이터에 의한 동적 요소가 출력되면서 그때 비로서 변수값이 적용된 sass styling 적용 (paint)
-*/
+
+//laptop
+.laptop {
+	.Gallery {
+		--num: 3;
+	}
+}
+
+//tablet
+.tablet {
+	.Gallery {
+		--num: 2;
+	}
+}
+
+//mobile
+.mobile {
+	.Gallery {
+		--num: 1;
+	}
+}
