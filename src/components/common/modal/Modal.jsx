@@ -1,6 +1,8 @@
 import './Modal.scss';
 //npm i framer-motion@4
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSelector, useDispatch } from 'react-redux';
+import * as types from '../../../redux/actionType';
 
 /*
   AnimatePresence: 모션을 적용할 컴포넌트의 wrapping컴포넌트 지정
@@ -11,7 +13,9 @@ import { AnimatePresence, motion } from 'framer-motion';
   -eixt: 사라질떄의 상태값
 */
 
-export default function Modal({ Open, setOpen, children }) {
+export default function Modal({children }) {
+	const dispatch = useDispatch();
+	const Open = useSelector(store => store.modalReducer.modal);
 	return (
 		<AnimatePresence>
 			{Open && (
@@ -31,7 +35,7 @@ export default function Modal({ Open, setOpen, children }) {
 					>
 						{children}
 					</motion.div>
-					<span onClick={() => setOpen(false)}>close</span>
+					<span onClick={() => dispatch({ type: types.MODAL.start, payload: false })}>close</span>
 				</motion.aside>
 			)}
 		</AnimatePresence>
