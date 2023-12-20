@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
 import emailjs from '@emailjs/browser';
+import { UseThrottle } from '../../../hooks/useThrottle';
 
 export default function Contact() {
 	const form = useRef();
@@ -90,6 +91,8 @@ export default function Contact() {
 		//roadview.current();
 	}, [Index]);
 
+	const throttledSetCenter = UseThrottle(setCenter);
+
 	//Index값 변경시마다 지도정보 갱신해서 화면 재랜더링 useEffect
 	useEffect(() => {
 		//Index값이 변경되는 것은 출력할 맵정보가 변경된다는 의미이므로 기존 프레임 안쪽의 정보를 지워서 초기화
@@ -107,9 +110,9 @@ export default function Contact() {
 		mapInstance.current.addControl(new kakao.current.maps.ZoomControl(), kakao.current.maps.ControlPosition.RIGHT);
 		mapInstance.current.setZoomable(false);
 
-		window.addEventListener('resize', setCenter);
-		return () => window.removeEventListener('resize', setCenter);
-	}, [Index, setCenter]);
+		window.addEventListener('resize', throttledSetCenter);
+		return () => window.removeEventListener('resize', throttledSetCenter);
+	}, [Index, throttledSetCenter]);
 
 	//Traffic 토글시마다 화면 재랜더링 useEffect
 	useEffect(() => {
