@@ -10,18 +10,18 @@ import Youtube from './components/sub/youtube/Youtube';
 import { Route } from 'react-router-dom';
 import './globalStyles/Variables.scss';
 import './globalStyles/Reset.scss';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMedia } from './hooks/useMedia';
-import Menu from './components/common/menu/Menu';
+import Menu from './components/common/memu/Menu';
 import Detail from './components/sub/youtube/Detail';
 import Welcome from './components/sub/members/Welcome';
 import * as types from './redux/action';
 
 export default function App() {
 	const dispatch = useDispatch();
+	const Dark = useSelector(store => store.darkReducer.dark);
 	const path = useRef(process.env.PUBLIC_URL);
-	const [Dark, setDark] = useState(false);
 
 	const fetchDepartment = useCallback(async () => {
 		const data = await fetch(`${path.current}/DB/department.json`);
@@ -58,7 +58,7 @@ export default function App() {
 
 	return (
 		<div className={`wrap ${Dark ? 'dark' : ''} ${useMedia()}`}>
-			<Header Dark={Dark} setDark={setDark} />
+			<Header />
 			<Route exact path='/' component={MainWrap} />
 			<Route path='/department' component={Department} />
 			<Route path='/gallery' component={Gallery} />
