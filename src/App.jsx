@@ -13,7 +13,7 @@ import './globalStyles/Reset.scss';
 import { useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMedia } from './hooks/useMedia';
-import Menu from './components/common/memu/Menu';
+import Menu from './components/common/menu/Menu';
 import Detail from './components/sub/youtube/Detail';
 import Welcome from './components/sub/members/Welcome';
 import * as types from './redux/action';

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import Layout from '../../common/layout/Layout';
 import './Contact.scss';
 import emailjs from '@emailjs/browser';
-import { UseThrottle } from '../../../hooks/useThrottle';
+import { useThrottle } from '../../../hooks/useThrottle';
 
 export default function Contact() {
 	const form = useRef();
@@ -91,7 +91,7 @@ export default function Contact() {
 		//roadview.current();
 	}, [Index]);
 
-	const throttledSetCenter = UseThrottle(setCenter);
+	const throttledSetCenter = useThrottle(setCenter);
 
 	//Index값 변경시마다 지도정보 갱신해서 화면 재랜더링 useEffect
 	useEffect(() => {

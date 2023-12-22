@@ -46,7 +46,7 @@ export default function Header() {
 				</li>
 			</ul>
 
-			<div className={`themeBox ${Dark && 'dark'}`} onClick={() => dispatch({ type: tyes.DARK.start, payload: !Dark })}>
+			<div className={`themeBox ${Dark && 'dark'}`} onClick={() => dispatch({ type: types.DARK.start, payload: !Dark })}>
 				<div className='ball'></div>
 			</div>
 
