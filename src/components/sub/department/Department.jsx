@@ -14,10 +14,12 @@ export default function Department() {
 
 	// const History = useSelector(store =>store.historyReducer);
 	// const Members = useSelector(store =>store.membersReducer);
-	const { historyReducer, membersReducer } = useSelector(store => store);
-	const HistoryTit = Object.keys(historyReducer)[0];
-	const HistoryData = Object.values(historyReducer)[0];
-	console.log(membersReducer);
+	const history = useSelector(store => store.historyReducer);
+	const members = useSelector(store => store.membersReducer);
+	const HistoryTit = Object.keys(history)[0];
+	const HistoryData = Object.values(history)[0];
+	const MemberTit = Object.keys(members)[0];
+	const MemberData = Object.values(members)[0];
 	// const MemberTit = Object.keys(membersReducer)[0];
 	// const MemberData = Object.values(membersReducer)[0];
 	return (
